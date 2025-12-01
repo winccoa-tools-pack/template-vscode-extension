@@ -2,6 +2,8 @@
 
 Minimal VS Code extension scaffold that calls `getExtensions()` from `@winccoa-tools-pack/core-utils`.
 
+one change
+
 Commands:
 - `martin.showExtensions` — shows available extensions from the shared library.
 
