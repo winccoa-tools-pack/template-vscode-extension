@@ -1,13 +1,9 @@
 import * as vscode from 'vscode';
-import { getExtensions } from '@winccoa-tools-pack/core-utils';
 
-export async function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand('martin.showExtensions', async () => {
-      const extensions = await getExtensions();
-      vscode.window.showInformationMessage(
-        `Available: ${extensions.map(e => e.name).join(', ')}`
-      );
+    vscode.commands.registerCommand('winccoa.helloWorld', () => {
+      vscode.window.showInformationMessage('Hello from WinCC OA Extension!');
     })
   );
 }
