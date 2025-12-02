@@ -1,10 +1,13 @@
 # PR labeler configuration for VS Code extension template
 extension:
-  - 'src/**'
-  - 'package.json'
+  - paths:
+      - 'src/**'
+      - 'package.json'
 
 ci:
-  - '.github/workflows/**'
+  - paths:
+      - '.github/workflows/**'
 
 tests:
-  - 'test/**'
+  - paths:
+      - 'test/**'
