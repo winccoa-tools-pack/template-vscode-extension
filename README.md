@@ -2,7 +2,7 @@
 
 Minimal starter template for creating VS Code extensions for WinCC OA with Git Flow workflow.
 
-## \ud83d\ude80 Quick Start
+## 🚀 Quick Start
 
 ### Initial Setup
 
@@ -34,7 +34,7 @@ Minimal starter template for creating VS Code extensions for WinCC OA with Git F
    npm test
    ```
 
-## \ud83c\udf33 Git Flow Workflow
+## 🌳 Git Flow Workflow
 
 This template uses [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for branch management:
 
@@ -71,7 +71,7 @@ The `setup-gitflow.ps1` script applies protection rules:
 - **main**: Requires PR reviews, status checks, no force pushes
 - **develop**: Requires PR reviews, status checks, allows force pushes (for rebasing)
 
-## \ud83d\udd10 VS Code Marketplace Publishing Setup
+## 🔐 VS Code Marketplace Publishing Setup
 
 To enable automatic publishing to the VS Code Marketplace when creating releases, you need to configure a Personal Access Token:
 
@@ -123,16 +123,16 @@ You also need a publisher account on the VS Code Marketplace:
 ### Testing Without VSCE_PAT
 
 If `VSCE_PAT` is not configured, the workflow will:
-- \u2705 Still run tests and build the extension
-- \u2705 Create GitHub releases with VSIX files
-- \u26a0\ufe0f Skip Marketplace publishing with a warning message
+- ✅ Still run tests and build the extension
+- ✅ Create GitHub releases with VSIX files
+- ⚠️ Skip Marketplace publishing with a warning message
 
 You can always publish manually later:
 ```bash
 vsce publish
 ```
 
-## \ud83d\udce6 Development
+## 📦 Development
 
 ```bash
 # Install dependencies
@@ -154,7 +154,7 @@ npm run package
 npm run lint
 ```
 
-## \ud83c\udfaf Testing Your Extension
+## 🎯 Testing Your Extension
 
 Press `F5` in VS Code to open a new Extension Development Host window with your extension loaded.
 
