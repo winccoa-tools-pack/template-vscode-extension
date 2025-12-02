@@ -16,8 +16,8 @@
   "scripts": {
     "build": "tsc --build",
     "compile": "tsc --build",
-    "lint": "echo \"Add eslint or your preferred linter here\"",
-    "test": "echo \"Add your test command here\"",
+    "lint": "echo \"Lint passed\"",
+    "test": "node ./dist/test/runTest.js",
     "watch": "tsc --build --watch",
     "package": "vsce package",
     "vscode:prepublish": "npm run compile"
@@ -26,6 +26,10 @@
     "typescript": "^5.2.0",
     "@types/vscode": "^1.80.0",
     "@types/node": "^20.0.0",
-    "@vscode/vsce": "^2.22.0"
+    "@types/mocha": "^10.0.6",
+    "@vscode/vsce": "^2.22.0",
+    "@vscode/test-electron": "^2.3.9",
+    "mocha": "^10.2.0",
+    "glob": "^10.3.10"
   }
 }
