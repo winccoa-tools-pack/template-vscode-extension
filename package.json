@@ -1,22 +1,31 @@
 {
   "name": "winccoa-vscode-extension",
   "displayName": "WinCC OA Tools (template)",
-  "publisher": "martin",
-  "version": "0.0.1",
+  "publisher": "winccoa-tools-pack",
+  "version": "0.1.0",
   "author": "winccoa-tools-pack",
   "license": "MIT",
   "engines": {
     "vscode": "^1.80.0"
   },
-  "activationEvents": [
-    "onCommand:martin.showExtensions"
+  "categories": [
+    "Other"
   ],
+  "activationEvents": [],
   "main": "dist/extension.js",
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "compile": "tsc --build",
+    "lint": "echo \"Add eslint or your preferred linter here\"",
+    "test": "echo \"Add your test command here\"",
+    "watch": "tsc --build --watch",
+    "package": "vsce package",
+    "vscode:prepublish": "npm run compile"
   },
   "devDependencies": {
     "typescript": "^5.2.0",
-    "@types/vscode": "^1.80.0"
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.0.0",
+    "@vscode/vsce": "^2.22.0"
   }
 }
