@@ -7,6 +7,7 @@ Minimal starter template for creating VS Code extensions for WinCC OA with Git F
 ### Initial Setup
 
 1. **Create repository from this template**
+
    ```bash
    # Via GitHub CLI
    gh repo create winccoa-tools-pack/<your-extension-name> \
@@ -15,6 +16,7 @@ Minimal starter template for creating VS Code extensions for WinCC OA with Git F
    ```
 
 2. **Clone and initialize Git Flow**
+
    ```bash
    git clone https://github.com/winccoa-tools-pack/<your-extension-name>
    cd <your-extension-name>
@@ -28,6 +30,7 @@ Minimal starter template for creating VS Code extensions for WinCC OA with Git F
    ```
 
 3. **Install dependencies and build**
+
    ```bash
    npm install
    npm run compile
@@ -39,6 +42,7 @@ Minimal starter template for creating VS Code extensions for WinCC OA with Git F
 This template uses [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for branch management:
 
 ### Branch Structure
+
 - **`main`** - Production-ready code (stable releases)
 - **`develop`** - Integration branch (pre-release features)
 - **`feature/*`** - New features
@@ -68,6 +72,7 @@ git flow hotfix finish 1.0.1
 ### Branch Protection
 
 The `setup-gitflow.ps1` script applies protection rules:
+
 - **main**: Requires PR reviews, status checks, no force pushes
 - **develop**: Requires PR reviews, status checks, allows force pushes (for rebasing)
 
@@ -82,7 +87,7 @@ The `release.yml` workflow automatically publishes your extension to the VS Code
 ### How to Get a Personal Access Token
 
 1. **Go to Azure DevOps**
-   - Navigate to: https://dev.azure.com
+   - Navigate to: <https://dev.azure.com>
 
 2. **Create Personal Access Token**
    - Click on your profile → **Personal access tokens**
@@ -107,12 +112,13 @@ The `release.yml` workflow automatically publishes your extension to the VS Code
 You also need a publisher account on the VS Code Marketplace:
 
 1. **Create Publisher**
-   - Go to https://marketplace.visualstudio.com/manage
+   - Go to <https://marketplace.visualstudio.com/manage>
    - Click **Create publisher**
    - Fill in publisher details (ID, name, etc.)
    - Your publisher ID should match the `publisher` field in `package.json`
 
 2. **Update package.json**
+
    ```json
    {
      "publisher": "your-publisher-id",
@@ -123,11 +129,13 @@ You also need a publisher account on the VS Code Marketplace:
 ### Testing Without VSCE_PAT
 
 If `VSCE_PAT` is not configured, the workflow will:
+
 - ✅ Still run tests and build the extension
 - ✅ Create GitHub releases with VSIX files
 - ⚠️ Skip Marketplace publishing with a warning message
 
 You can always publish manually later:
+
 ```bash
 vsce publish
 ```
@@ -185,14 +193,16 @@ It might happens, that the partial repositories contains third party SW which ar
 
 ## 🎉 Thank You
 
-Thank you for using WinCC OA tools package! We're excited to be part of your development journey.
-
-**Happy Coding! 🚀**
+Thank you for using WinCC OA tools package!
+We're excited to be part of your development journey. **Happy Coding! 🚀**
 
 ---
 
-**Quick Links**
+## Quick Links
 
-- [📦 VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mPokornyETM.wincc-oa-projects)
+- [📦 VS Code Marketplace](https://marketplace.visualstudio.com/search?term=tag%3Awincc-oa&target=VSCode&category=All%20categories&sortBy=Relevance)
+- [SIMATIC WinCC Open Architecture](https://www.siemens.com/global/en/products/automation/industry-software/automation-software/scada/simatic-wincc-oa.html)
+- [SIMATIC WinCC Open Architecture official documentation](https://www.winccoa.com/documentation/WinCCOA/latest/en_US/index.html)
+- [ETM Company](https://www.winccoa.com/company.html)
 
-*Made with ❤️ for and by the WinCC OA community*
+<center>Made with ❤️ for and by the WinCC OA community</center>
