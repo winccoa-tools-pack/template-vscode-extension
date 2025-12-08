@@ -26,3 +26,10 @@
 *.gif binary
 *.ico binary
 *.vsix binary
+
+# Tooling / config files — force LF to avoid Windows CRLF diffs
+.prettierrc.json text eol=lf
+.prettierignore text eol=lf
+.eslintrc.cjs text eol=lf
+.markdownlint.json text eol=lf
+.editorconfig text eol=lf
