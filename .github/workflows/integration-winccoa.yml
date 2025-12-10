@@ -56,7 +56,7 @@ jobs:
         run: |
           # Ensure Node.js and npm are available inside the container. Try NodeSource for Node 20.x,
           # otherwise fall back to distro package managers.
-          docker exec winccoa-ci sh -c '
+          docker exec --user root winccoa-ci sh -c '
             set -e
             if command -v node >/dev/null 2>&1; then
               echo "node already installed: $(node --version)";
