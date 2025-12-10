@@ -1,35 +1,28 @@
-name: Gitflow Auto-Merge
+name: Gitflow
 
 on:
   push:
-    branches:
-      - main
-      - develop
+  pull_request_review:
+  check_run:
+    types: [completed]
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
 
 jobs:
-  merge-back:
+  build:
+    name: Gitflow
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Run gitflow action
+        uses: Logerfo/gitflow-action@0.0.5
         with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-      
-      - name: Merge main to develop
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git checkout develop
-          git merge --no-ff main -m "chore(gitflow): merge main back to develop"
-          git push origin develop
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          dev: develop
+          master: main
+          release: release
+          release-regex: '^release/(.*)'
+          label: gitflow
+          auto-merge: true
+          require-merge: false
