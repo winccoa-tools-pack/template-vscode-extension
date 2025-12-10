@@ -2,7 +2,7 @@
   "name": "winccoa-vscode-extension",
   "displayName": "WinCC OA Tools (template)",
   "publisher": "winccoa-tools-pack",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": "winccoa-tools-pack",
   "license": "MIT",
   "engines": {
