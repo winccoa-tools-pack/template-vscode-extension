@@ -7,5 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Added next release preparations and version bump to `0.1.1`.
+- Prepared release `0.1.2`.
+
+## [0.1.2] - 2025-12-10
+
+- Release: bump version to `0.1.2` and finalize changelog.
 
