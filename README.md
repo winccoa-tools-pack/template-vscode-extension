@@ -20,10 +20,10 @@ Minimal starter template for creating VS Code extensions for WinCC OA with Git F
    ```bash
    git clone https://github.com/winccoa-tools-pack/<your-extension-name>
    cd <your-extension-name>
-   
+
    # Run the setup script (PowerShell)
    .\setup-gitflow.ps1
-   
+
    # Or manually
    git flow init -d
    git push -u origin develop
@@ -87,9 +87,11 @@ The `release.yml` workflow automatically publishes your extension to the VS Code
 ### How to Get a Personal Access Token
 
 1. **Go to Azure DevOps**
+
    - Navigate to: <https://dev.azure.com>
 
 2. **Create Personal Access Token**
+
    - Click on your profile → **Personal access tokens**
    - Click **+ New Token**
    - Name: `VS Code Marketplace Publishing`
@@ -112,6 +114,7 @@ The `release.yml` workflow automatically publishes your extension to the VS Code
 You also need a publisher account on the VS Code Marketplace:
 
 1. **Create Publisher**
+
    - Go to <https://marketplace.visualstudio.com/manage>
    - Click **Create publisher**
    - Fill in publisher details (ID, name, etc.)
