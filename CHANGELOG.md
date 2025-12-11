@@ -13,3 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Release: bump version to `0.1.2` and finalize changelog.
 
+## [0.1.3] - 2025-12-11
+
+- Release: bump version to `0.1.3` and include CI/workflow docs updates.
