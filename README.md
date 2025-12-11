@@ -169,6 +169,20 @@ npm run lint
 
 Press `F5` in VS Code to open a new Extension Development Host window with your extension loaded.
 
+## Triggering the Image Build (Safe Example)
+
+If you want to build and test the WinCC OA Docker image from this repository, prefer supplying your own Docker Hub namespace and repo to avoid accidental pushes to upstream.
+
+```powershell
+# Example: dispatch the build workflow and set your namespace/repo
+gh workflow run build-winccoa-image.yml \
+   -f docker_namespace=your-docker-namespace \
+   -f repo_name=your-repo-name \
+   -f node_version=20
+```
+
+If you do not provide `docker_namespace` or `repo_name`, the workflow will default `docker_namespace` to the repository owner and `repo_name` to the repository name; push steps will be skipped if `DOCKER_USER`/`DOCKER_PASSWORD` secrets are missing.
+
 ## 🏆 Recognition
 
 Special thanks to all our [contributors](https://github.com/orgs/winccoa-tools-pack/people) who make this project possible!
