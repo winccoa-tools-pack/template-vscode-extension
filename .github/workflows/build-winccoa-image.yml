@@ -42,8 +42,8 @@ jobs:
             REPO_NAME=${{ env.REPO_NAME }}
             WINCCOA_VERSION=${{ env.WINCCOA_VERSION }}
           tags: |
-            ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
-            ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.REPO_NAME }}
+            ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}-${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
+            ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}-${{ env.REPO_NAME }}:${{ env.REPO_NAME }}
           labels: |
             repository=${{ env.REPO_NAME }}
             winccoa=${{ env.WINCCOA_VERSION }}
@@ -51,7 +51,7 @@ jobs:
 
       - name: Run integration tests inside built image
         env:
-          IMAGE_TAG: ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
+          IMAGE_TAG: ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}-${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
         run: |
           set -e
           echo "Starting container from image $IMAGE_TAG"
@@ -77,10 +77,10 @@ jobs:
 
       - name: Push image to Docker Hub
         run: |
-          IMAGE_TAG=${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
+          IMAGE_TAG=${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}-${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
           docker push "$IMAGE_TAG"
-          docker tag "$IMAGE_TAG" "${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.REPO_NAME }}"
-          docker push "${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.REPO_NAME }}"
+          docker tag "$IMAGE_TAG" "${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}-${{ env.REPO_NAME }}:${{ env.REPO_NAME }}"
+          docker push "${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}-${{ env.REPO_NAME }}:${{ env.REPO_NAME }}"
           # If package.json specifies a canonical image name in config.winccoaImage, push that too
           EXTRA_IMAGE=$(node -p "require('./package.json').config && require('./package.json').config.winccoaImage || ''")
           if [ -n "$EXTRA_IMAGE" ]; then
