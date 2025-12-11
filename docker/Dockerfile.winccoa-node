@@ -6,6 +6,9 @@ ARG WINCCOA_VERSION=3.19.9
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Ensure we are root for package installation
+USER root
+
 # Install NodeSource and GUI deps (Debian/Ubuntu path used by base image)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates gnupg xz-utils xauth xvfb libatk1.0-0 libgtk-3-0 libx11-6 libxkbfile1 libasound2 libxss1 libnss3 libxcomposite1 libxrandr2 libgbm1 && \
