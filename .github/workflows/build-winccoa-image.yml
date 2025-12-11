@@ -42,8 +42,8 @@ jobs:
             REPO_NAME=${{ env.REPO_NAME }}
             WINCCOA_VERSION=${{ env.WINCCOA_VERSION }}
           tags: |
-            ${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
-            ${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.REPO_NAME }}
+            ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:winccoa-${{ env.WINCCOA_VERSION }}-node${{ env.NODE_MAJOR }}-${{ env.REPO_NAME }}
+            ${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.REPO_NAME }}
           labels: |
             repository=${{ env.REPO_NAME }}
             winccoa=${{ env.WINCCOA_VERSION }}
