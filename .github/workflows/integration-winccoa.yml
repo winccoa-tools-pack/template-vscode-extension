@@ -28,7 +28,7 @@ jobs:
       - name: Determine WinCC OA image from package.json
         id: image
         run: |
-          IMAGE=$(node -p "require('./package.json').config && require('./package.json').config.winccoaImage || '${{ env.DOCKER_NAMESPACE }}/${{ env.REPO_NAME }}:${{ env.REPO_NAME }}'")
+          IMAGE=$(node -p "require('./package.json').config && require('./package.json').config.winccoaImage || '${{ secrets.DOCKER_USER }}/${{ env.DOCKER_NAMESPACE }}-${{ env.REPO_NAME }}:${{ env.REPO_NAME }}'")
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
 
       - name: Login to Docker Hub
