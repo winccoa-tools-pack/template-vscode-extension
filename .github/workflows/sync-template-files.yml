@@ -1,5 +1,5 @@
 
-name: Sync organization files to repositories
+name: Sync template files to repositories
 
 on:
   schedule:
@@ -27,4 +27,5 @@ jobs:
       pr_labels: "sync, automated"
    #   pr_reviewers: "REPLACE_WITH_REAL_USERS_OR_TEAMS"
       branch_prefix: "chore/template-sync"
+
     secrets: inherit
