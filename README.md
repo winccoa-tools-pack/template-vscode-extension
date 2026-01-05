@@ -7,6 +7,7 @@ A minimal starter template for building **VS Code extensions for WinCC OA** with
 ## 🚀 Quick Start
 
 ### 1) Create Your Extension Repo
+
 ```bash
 # Using GitHub CLI
 gh repo create winccoa-tools-pack/<your-repository> \
@@ -15,6 +16,7 @@ gh repo create winccoa-tools-pack/<your-repository> \
 ```
 
 ### 2) Clone, Install, Build
+
 ```bash
 git clone https://github.com/winccoa-tools-pack/<your-repository>
 cd <your-repository>
@@ -40,6 +42,7 @@ Update these fields to match your extension:
 - `activationEvents`: Update to match your command ID
 
 Example quick edits:
+
 ```bash
 npm pkg set name='@winccoa-tools-pack/vscode-my-extension'
 npm pkg set displayName='WinCC OA — My Extension'
@@ -74,7 +77,8 @@ npm pkg set publisher='winccoa-tools-pack'
 ✅ **Fully automated**: When you create a **GitHub Release**, the CI pipeline builds your extension and publishes it to the VS Code Marketplace using the `VSCE_PAT` secret.
 
 **What you need to do:**
-- Set up your publisher account: https://marketplace.visualstudio.com/manage
+
+- Set up your publisher account: <https://marketplace.visualstudio.com/manage>
 - Add `VSCE_PAT` as a GitHub Actions secret
 - Ensure `publisher` and `name` in `package.json` match your Marketplace publisher and extension name
 
@@ -105,11 +109,13 @@ npm run style-check
 ```
 
 Run in VS Code:
+
 - Press **F5** to open an **Extension Development Host**.
 
 ---
 
 ## ✅ Features
+
 - **Webpack bundling** for optimized VSIX
 - **TypeScript** with strict defaults
 - **Lean VSIX** via `.vscodeignore`
@@ -118,11 +124,13 @@ Run in VS Code:
 ---
 
 ## 📜 License
-MIT License. See https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE.
+
+MIT License. See <https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE>.
 
 ---
 
 ## ⚠️ Disclaimer
+
 **WinCC OA** and **Siemens** are trademarks of Siemens AG. This project is community-driven and not affiliated with Siemens AG.
 
 ---

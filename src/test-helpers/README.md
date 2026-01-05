@@ -69,7 +69,7 @@ see also:
 
 The helper uses test project fixtures located in `test/fixtures/projects/`:
 
-- `runnable/` - A complete runnable WinCC OA project for testing
-- `sub-proj/` - A sub-project fixture (not runnable)
++ `runnable/` - A complete runnable WinCC OA project for testing
++ `sub-proj/` - A sub-project fixture (not runnable)
 
 Each fixture contains a `config/` directory with WinCC OA configuration files.
