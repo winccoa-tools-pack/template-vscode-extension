@@ -181,7 +181,8 @@ gh workflow run build-winccoa-image.yml \
    -f node_version=20
 ```
 
-If you do not provide `docker_namespace` or `repo_name`, the workflow will default `docker_namespace` to the repository owner and `repo_name` to the repository name; push steps will be skipped if `DOCKER_USER`/`DOCKER_PASSWORD` secrets are missing.
+If you do not provide `docker_namespace` or `repo_name`, the workflow will default `docker_namespace` to the repository owner and `repo_name` to the repository name;
+push steps will be skipped if `DOCKER_USER`/`DOCKER_PASSWORD` secrets are missing.
 
 ## 🏆 Recognition
 
@@ -204,7 +205,8 @@ It might happens, that the partial repositories contains third party SW which ar
 
 ## ⚠️ Disclaimer
 
-**WinCC OA** and **Siemens** are trademarks of Siemens AG. This project is not affiliated with, endorsed by, or sponsored by Siemens AG. This is a community-driven open source project created to enhance the development experience for WinCC OA developers.
+**WinCC OA** and **Siemens** are trademarks of Siemens AG. This project is not affiliated with, endorsed by, or sponsored by Siemens AG.
+This is a community-driven open source project created to enhance the development experience for WinCC OA developers.
 
 ---
 

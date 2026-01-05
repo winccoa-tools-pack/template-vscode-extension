@@ -4,13 +4,17 @@ on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
 jobs:
   label:
     runs-on: ubuntu-latest
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     steps:
       - name: Check out
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run labeler
         uses: actions/labeler@v6
