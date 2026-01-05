@@ -61,20 +61,9 @@ const path = getTestProjectPath('runnable');
 
 ## Usage in Tests
 
-```typescript
-import { describe, it } from 'node:test';
-import { strict as assert } from 'assert';
-import { withRunnableTestProject } from '../helpers/test-project-helpers';
+see also:
 
-describe('My Integration Test', () => {
-    it('should test project functionality', async () => {
-        await withRunnableTestProject(async (project) => {
-            // Your test code here
-            assert.ok(project.isRegistered());
-        });
-    });
-});
-```
++ test\integration\test-project-helpers.test.ts
 
 ## Test Fixtures
 

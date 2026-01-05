@@ -1,12 +1,16 @@
+
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
-    "declaration": true,
-    "outDir": "dist",
+    "module": "ESNext",            // webpack handles module bundling
+    "moduleResolution": "Node",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "rootDir": "src",
+    "outDir": "out",
+    "types": ["node", "vscode"]
   },
   "include": ["src/**/*"]
 }

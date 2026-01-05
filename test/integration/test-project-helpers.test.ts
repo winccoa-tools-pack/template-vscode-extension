@@ -4,7 +4,7 @@ import {
     registerRunnableTestProject, 
     unregisterTestProject,
     withRunnableTestProject 
-} from '../helpers/test-project-helpers';
+} from '../../src/test-helpers/test-project-helpers';
 
 describe('Test Project Helpers Example', () => {
     // Example 1: Manual registration and cleanup

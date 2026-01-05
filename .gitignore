@@ -1,8 +1,13 @@
+
 # Dependencies
 node_modules/
 
 # Build output
 dist/
+dist-esm/
+out/
+bin/
+!bin/*.vsix
 
 # IDE
 .vscode/
@@ -24,8 +29,16 @@ yarn-error.log*
 
 # Testing
 coverage/
+.vscode-test/
 
 # Temporary files
 *.tmp
 .cache/
-.vscode-test/
+DevEnv.code-workspace
+
+# TypeScript build info
+**/*.tsbuildinfo
+
+# Optional extras
+*.tgz
+.env
