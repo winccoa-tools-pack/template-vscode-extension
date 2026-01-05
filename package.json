@@ -71,6 +71,7 @@
     "compile": "webpack --mode production",
     "watch": "webpack --watch --mode development",
     "vscode:prepublish": "npm run compile",
+
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules",
@@ -79,9 +80,11 @@
     "format:check": "prettier --check \"src/**/*.ts\"",
     "style-check": "npm run lint && npm run format:check && npm run lint:md",
     "style-fix": "npm run lint:fix && npm run format && npm run lint:md:fix",
+
     "test": "npm run style-check && npm run test:unit",
-    "test:unit": "node --import tsx --test --test-force-exit \"test/unit/**/*.test.ts\"",
-    "test:integration": "node --import tsx --test --test-force-exit \"test/integration/**/*.test.ts\"",
-    "package": "vsce package"
+    "test:unit": "node --import tsx --test --test-force-exit test/unit",
+    "test:integration": "node --import tsx --test --test-force-exit test/integration",
+
+    "ci:integration": "npm ci && npm run compile && npm run test:integration"
   }
 }
