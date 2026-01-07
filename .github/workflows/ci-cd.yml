@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ develop, feature/*, release/*, hotfix/* ]
+    branches: [ develop ]
   pull_request:
     branches: [ main, develop ]
 
@@ -12,11 +12,11 @@ permissions:
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x]
         
     steps:
     - name: Checkout repository
@@ -31,17 +31,17 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Run lint
-      run: npm run lint
+    - name: Build package
+      run: npm run build
       
-    - name: Compile TypeScript
-      run: npm run compile
+    - name: Run style checks
+      run: npm run style-check
       
-    - name: Run tests
-      run: npm test
+    - name: Run unit tests
+      run: npm run test:unit
       env:
         CI: true
-
+        
   package:
     runs-on: ubuntu-latest
     needs: test
@@ -66,7 +66,7 @@ jobs:
         vsce package
         
     - name: Upload VSIX as artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: vscode-extension-${{ github.sha }}
         path: '*.vsix'

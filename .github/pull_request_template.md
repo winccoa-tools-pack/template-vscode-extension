@@ -42,13 +42,13 @@
 
 - [ ] Branch follows Git Flow naming convention (`feature/`, `release/`, `hotfix/`, `bugfix/`)
 - [ ] Branch is created from correct source:
-  - [ ] Feature/Bugfix: branched from `develop`
-  - [ ] Release: branched from `develop`
-  - [ ] Hotfix: branched from `main`
+    - [ ] Feature/Bugfix: branched from `develop`
+    - [ ] Release: branched from `develop`
+    - [ ] Hotfix: branched from `main`
 - [ ] Target branch is correct:
-  - [ ] Feature/Bugfix: merging to `develop`
-  - [ ] Release: merging to `main` (will be back-merged to `develop`)
-  - [ ] Hotfix: merging to `main` (will be back-merged to `develop`)
+    - [ ] Feature/Bugfix: merging to `develop`
+    - [ ] Release: merging to `main` (will be back-merged to `develop`)
+    - [ ] Hotfix: merging to `main` (will be back-merged to `develop`)
 - [ ] Commits follow [Conventional Commits](https://www.conventionalcommits.org/) format
 - [ ] Branch will be deleted after merge (for feature/hotfix/release branches)
 
@@ -101,7 +101,6 @@
 ### Documentation
 
 - [ ] I have updated the documentation accordingly
-- [ ] I have updated the CHANGELOG.md file (if applicable)
 - [ ] Any new configuration options are documented
 
 ### Dependencies
@@ -148,7 +147,7 @@
 3. **Important**: Create back-merge PR from `main` to `develop` to sync changes
 4. Delete hotfix branch after both merges complete
 
-**📖 For complete Git Flow documentation, see: [docs/GITFLOW_WORKFLOW.md](docs/GITFLOW_WORKFLOW.md)**
+**📖 For complete Git Flow documentation, see: [docs/automation/GITFLOW_WORKFLOW.md](docs/automation/GITFLOW_WORKFLOW.md)**
 
 ---
 

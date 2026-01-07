@@ -1,210 +1,137 @@
 # WinCC OA VS Code Extension Template
 
-Minimal starter template for creating VS Code extensions for WinCC OA with Git Flow workflow.
+A minimal starter template for building **VS Code extensions for WinCC OA** with automated publishing via GitHub Actions.
+
+---
 
 ## 🚀 Quick Start
 
-### Initial Setup
-
-1. **Create repository from this template**
-
-   ```bash
-   # Via GitHub CLI
-   gh repo create winccoa-tools-pack/<your-extension-name> \
-     --template winccoa-tools-pack/template-vscode-extension \
-     --public
-   ```
-
-2. **Clone and initialize Git Flow**
-
-   ```bash
-   git clone https://github.com/winccoa-tools-pack/<your-extension-name>
-   cd <your-extension-name>
-
-   # Run the setup script (PowerShell)
-   .\setup-gitflow.ps1
-
-   # Or manually
-   git flow init -d
-   git push -u origin develop
-   ```
-
-3. **Install dependencies and build**
-
-   ```bash
-   npm install
-   npm run compile
-   npm test
-   ```
-
-## 🌳 Git Flow Workflow
-
-This template uses [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for branch management:
-
-### Branch Structure
-
-- **`main`** - Production-ready code (stable releases)
-- **`develop`** - Integration branch (pre-release features)
-- **`feature/*`** - New features
-- **`release/*`** - Release preparation
-- **`hotfix/*`** - Emergency fixes for production
-
-### Common Commands
+### 1) Create Your Extension Repo
 
 ```bash
-# Start a new feature
-git flow feature start my-feature
-
-# Finish feature (merges to develop)
-git flow feature finish my-feature
-
-# Start a release
-git flow release start 1.0.0
-
-# Finish release (merges to main and develop, creates tag)
-git flow release finish 1.0.0
-
-# Hotfix for production
-git flow hotfix start 1.0.1
-git flow hotfix finish 1.0.1
+# Using GitHub CLI
+gh repo create winccoa-tools-pack/<your-repository> \
+  --template winccoa-tools-pack/template-vscode-extension \
+  --public
 ```
 
-### Branch Protection
-
-The `setup-gitflow.ps1` script applies protection rules:
-
-- **main**: Requires PR reviews, status checks, no force pushes
-- **develop**: Requires PR reviews, status checks, allows force pushes (for rebasing)
-
-## 🔐 VS Code Marketplace Publishing Setup
-
-To enable automatic publishing to the VS Code Marketplace when creating releases, you need to configure a Personal Access Token:
-
-### Why VSCE_PAT is Required
-
-The `release.yml` workflow automatically publishes your extension to the VS Code Marketplace when you merge a release PR to `main`. This requires authentication with Azure DevOps.
-
-### How to Get a Personal Access Token
-
-1. **Go to Azure DevOps**
-
-   - Navigate to: <https://dev.azure.com>
-
-2. **Create Personal Access Token**
-
-   - Click on your profile → **Personal access tokens**
-   - Click **+ New Token**
-   - Name: `VS Code Marketplace Publishing`
-   - Organization: **All accessible organizations**
-   - Expiration: Choose appropriate duration
-   - Scopes: **Marketplace** → **Manage** (check the box)
-   - Click **Create**
-   - **Copy the token** (you won't see it again!)
-
-3. **Add Token to Repository**
-   - Go to your GitHub repository settings
-   - Navigate to **Settings** → **Secrets and variables** → **Actions**
-   - Click **"New repository secret"**
-   - Name: `VSCE_PAT`
-   - Value: Paste your Personal Access Token
-   - Click **"Add secret"**
-
-### Publisher Setup
-
-You also need a publisher account on the VS Code Marketplace:
-
-1. **Create Publisher**
-
-   - Go to <https://marketplace.visualstudio.com/manage>
-   - Click **Create publisher**
-   - Fill in publisher details (ID, name, etc.)
-   - Your publisher ID should match the `publisher` field in `package.json`
-
-2. **Update package.json**
-
-   ```json
-   {
-     "publisher": "your-publisher-id",
-     "name": "your-extension-name"
-   }
-   ```
-
-### Testing Without VSCE_PAT
-
-If `VSCE_PAT` is not configured, the workflow will:
-
-- ✅ Still run tests and build the extension
-- ✅ Create GitHub releases with VSIX files
-- ⚠️ Skip Marketplace publishing with a warning message
-
-You can always publish manually later:
+### 2) Clone, Install, Build
 
 ```bash
-vsce publish
+git clone https://github.com/winccoa-tools-pack/<your-repository>
+cd <your-repository>
+
+npm install
+npm run compile
+npm test
 ```
 
-## 📦 Development
+---
+
+## 🧩 Rename Placeholders in `package.json`
+
+Update these fields to match your extension:
+
+- `name`: `@winccoa-tools-pack/vscode-<your-repository>`
+- `displayName`: e.g., `WinCC OA — My Extension`
+- `description`: Short summary of your extension
+- `publisher`: Your Marketplace publisher ID
+- `icon`: Path to your icon (e.g., `resources/vscode-<your-repository>-icon.png`)
+- `repository.url`, `bugs.url`, `homepage`: Your repo links
+- `contributes.commands[].command`: Replace `winccoa.<yourExtensionCommand>`
+- `activationEvents`: Update to match your command ID
+
+Example quick edits:
+
+```bash
+npm pkg set name='@winccoa-tools-pack/vscode-my-extension'
+npm pkg set displayName='WinCC OA — My Extension'
+npm pkg set publisher='winccoa-tools-pack'
+```
+
+---
+
+## 📁 Recommended Project Structure
+
+```text
+<your-repository>/
+├─ .github/                 # GitHub workflows (CI/CD)
+├─ resources/               # Icons/images for VSIX
+│  └─ vscode-<your-repository>-icon.png
+├─ src/                     # TypeScript source
+│  └─ extension.ts          # Extension entrypoint
+├─ test/                    # Unit & integration tests
+├─ out/                     # Webpack bundle output
+├─ webpack.config.js        # Bundling config
+├─ package.json             # Extension manifest
+├─ tsconfig.json            # TS config
+├─ .vscodeignore            # VSIX packaging ignore rules
+├─ .gitignore               # Git ignore rules
+└─ README.md
+```
+
+---
+
+## 🔐 Marketplace Publishing
+
+✅ **Fully automated**: When you create a **GitHub Release**, the CI pipeline builds your extension and publishes it to the VS Code Marketplace using the `VSCE_PAT` secret.
+
+**What you need to do:**
+
+- Set up your publisher account: <https://marketplace.visualstudio.com/manage>
+- Add `VSCE_PAT` as a GitHub Actions secret
+- Ensure `publisher` and `name` in `package.json` match your Marketplace publisher and extension name
+
+No manual steps required—just tag a release and let the pipeline do the work!
+
+---
+
+## 🛠️ Development
 
 ```bash
 # Install dependencies
 npm install
 
-# Compile TypeScript
+# Build (webpack -> out/extension.js)
 npm run compile
 
-# Watch mode (auto-compile on changes)
+# Watch & rebuild on change
 npm run watch
 
 # Run tests
 npm test
 
-# Package extension (.vsix file)
+# Package VSIX locally
 npm run package
 
-# Run lint
-npm run lint
+# Lint / format
+npm run style-check
 ```
 
-## 🎯 Testing Your Extension
+Run in VS Code:
 
-Press `F5` in VS Code to open a new Extension Development Host window with your extension loaded.
+- Press **F5** to open an **Extension Development Host**.
 
-## Triggering the Image Build (Safe Example)
+---
 
-If you want to build and test the WinCC OA Docker image from this repository, prefer supplying your own Docker Hub namespace and repo to avoid accidental pushes to upstream.
+## ✅ Features
 
-```powershell
-# Example: dispatch the build workflow and set your namespace/repo
-gh workflow run build-winccoa-image.yml \
-   -f docker_namespace=your-docker-namespace \
-   -f repo_name=your-repo-name \
-   -f node_version=20
-```
-
-If you do not provide `docker_namespace` or `repo_name`, the workflow will default `docker_namespace` to the repository owner and `repo_name` to the repository name; push steps will be skipped if `DOCKER_USER`/`DOCKER_PASSWORD` secrets are missing.
-
-## 🏆 Recognition
-
-Special thanks to all our [contributors](https://github.com/orgs/winccoa-tools-pack/people) who make this project possible!
-
-### Key Contributors
-
-- **Martin Pokorny** ([@mPokornyETM](https://github.com/mPokornyETM)) - Creator & Lead Developer
-- And many more amazing contributors!
+- **Webpack bundling** for optimized VSIX
+- **TypeScript** with strict defaults
+- **Lean VSIX** via `.vscodeignore`
+- **CI/CD** for build, test, and publish on release
 
 ---
 
 ## 📜 License
 
-This project is basically licensed under the **MIT License** - see the [LICENSE](https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE) file for details.
-
-It might happens, that the partial repositories contains third party SW which are using other license models.
+MIT License. See <https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE>.
 
 ---
 
 ## ⚠️ Disclaimer
 
-**WinCC OA** and **Siemens** are trademarks of Siemens AG. This project is not affiliated with, endorsed by, or sponsored by Siemens AG. This is a community-driven open source project created to enhance the development experience for WinCC OA developers.
+**WinCC OA** and **Siemens** are trademarks of Siemens AG. This project is community-driven and not affiliated with Siemens AG.
 
 ---
 
@@ -215,7 +142,7 @@ We're excited to be part of your development journey. **Happy Coding! 🚀**
 
 ---
 
-## Quick Links
+### Quick Links
 
 - [📦 VS Code Marketplace](https://marketplace.visualstudio.com/search?term=tag%3Awincc-oa&target=VSCode&category=All%20categories&sortBy=Relevance)
 - [SIMATIC WinCC Open Architecture](https://www.siemens.com/global/en/products/automation/industry-software/automation-software/scada/simatic-wincc-oa.html)

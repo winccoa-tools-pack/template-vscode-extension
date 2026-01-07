@@ -1,22 +1,77 @@
 {
-  "name": "winccoa-vscode-extension",
-  "displayName": "WinCC OA Tools (template)",
-  "publisher": "winccoa-tools-pack",
+  "name": "@winccoa-tools-pack/vscode-<your-repository>",
+  "displayName": "WinCC OA — <Your Extension Name>",
+  "description": "VS Code extension template for WinCC OA tools.",
   "version": "0.0.1",
+  "publisher": "winccoa-tools-pack",
   "author": "winccoa-tools-pack",
   "license": "MIT",
-  "engines": {
-    "vscode": "^1.80.0"
-  },
+  "icon": "resources/vscode-<your-repository>-icon.png",
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
-  "main": "dist/extension.js",
+  "keywords": [
+    "wincc-oa",
+    "scada",
+    "hmi",
+    "siemens",
+    "etm",
+    "industrial",
+    "automation"
+  ],
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/winccoa-tools-pack/<your-repository>"
+  },
+  "bugs": {
+    "url": "https://github.com/winccoa-tools-pack/<your-repository>/issues"
+  },
+  "homepage": "https://github.com/winccoa-tools-pack/<your-repository>#readme",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:winccoa.<yourExtensionCommand>"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "winccoa.<yourExtensionCommand>",
+        "title": "WinCC OA: Run <Your Command>"
+      }
+    ]
+  },
+  "extensionDependencies": [
+    "RichardJanisch.winccoa-project-admin"
+  ],
+  "dependencies": {
+    "@winccoa-tools-pack/npm-winccoa-core": "^0.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^20.12.7",
+    "@types/vscode": "^1.96.0",
+    "@vscode/vsce": "^3.7.1",
+    "eslint": "^9.39.2",
+    "markdownlint-cli": "^0.47.0",
+    "prettier": "^3.3.3",
+    "source-map": "^0.8.0-beta.0",
+    "ts-loader": "^9.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.51.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
+  },
   "scripts": {
-    "build": "tsc --build",
-    "compile": "tsc --build",
-    "prepublishOnly": "npm run build",
+    "build": "webpack --mode production",
+    "compile": "webpack --mode production",
+    "watch": "webpack --watch --mode development",
+    "vscode:prepublish": "npm run compile",
+
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules",
@@ -25,27 +80,11 @@
     "format:check": "prettier --check \"src/**/*.ts\"",
     "style-check": "npm run lint && npm run format:check && npm run lint:md",
     "style-fix": "npm run lint:fix && npm run format && npm run lint:md:fix",
-    "test": "npm run style-check && npm run build && npm run test:unit",
-    "test:unit": "npm run build && node --test --test-force-exit test/unit/*.test.ts",
-    "test:integration": "npm run build && node --test --test-force-exit test/integration/*.test.ts",
-    "ci:integration": "npm ci && npm run build && npm run test:integration",
-    "watch": "tsc --build --watch",
-    "package": "vsce package",
-    "vscode:prepublish": "npm run compile"
-  },
-  "devDependencies": {
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^25.0.3",
-    "@types/vscode": "^1.107.0",
-    "@typescript-eslint/eslint-plugin": "^8.51.0",
-    "@typescript-eslint/parser": "^8.51.0",
-    "@vscode/test-electron": "^2.3.9",
-    "@vscode/vsce": "^3.7.1",
-    "eslint": "^9.39.2",
-    "glob": "^13.0.0",
-    "markdownlint-cli": "^0.47.0",
-    "mocha": "^11.7.5",
-    "prettier": "^2.8.8",
-    "typescript": "^5.2.0"
+
+    "test": "npm run style-check && npm run test:unit",
+    "test:unit": "node --import tsx --test --test-force-exit test/unit",
+    "test:integration": "node --import tsx --test --test-force-exit test/integration",
+
+    "ci:integration": "npm ci && npm run compile && npm run test:integration"
   }
 }
