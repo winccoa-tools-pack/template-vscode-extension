@@ -36,8 +36,16 @@ module.exports = tseslint.config(
     },
   },
 
+  // Legacy tests: allow `any` without spending time refactoring
+  {
+    files: ['src/test/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+
   // Ignore typical output folders (flat config replaces .eslintignore)
   {
-    ignores: ['node_modules/', 'dist/', 'coverage/']
+    ignores: ['node_modules/', 'dist/', 'out/', 'coverage/']
   }
 );

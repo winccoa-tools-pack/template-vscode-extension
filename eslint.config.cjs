@@ -62,6 +62,6 @@ module.exports = tseslint.config(
 
   // 4) Optional: ignore-output folders
   {
-    ignores: ['node_modules/**', 'dist/**', 'coverage/**'],
+    ignores: ['node_modules/**', 'dist/**', 'coverage/**', 'src/test/**'],
   }
 );

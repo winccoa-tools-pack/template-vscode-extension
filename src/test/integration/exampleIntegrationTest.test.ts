@@ -1,10 +1,10 @@
 import { describe, it } from 'node:test';
 import { strict as assert } from 'assert';
-import { 
-    registerRunnableTestProject, 
+import {
+    registerRunnableTestProject,
     unregisterTestProject,
-    withRunnableTestProject 
-} from '../../src/test-helpers/test-project-helpers';
+    withRunnableTestProject,
+} from '../test-project-helpers';
 
 describe('Test Project Helpers Example', () => {
     // Example 1: Manual registration and cleanup
@@ -12,11 +12,10 @@ describe('Test Project Helpers Example', () => {
         let project;
         try {
             project = await registerRunnableTestProject();
-            
+
             assert.ok(project, 'Project should be created');
             assert.ok(project.getId(), 'Project should have an ID');
             assert.ok(project.isRegistered(), 'Project should be registered');
-            
         } finally {
             if (project) {
                 await unregisterTestProject(project);
@@ -30,7 +29,7 @@ describe('Test Project Helpers Example', () => {
             assert.ok(project.getId(), 'Project should have an ID');
             console.log(`Using test project with ID: ${project.getId()}`);
             assert.ok(project.isRegistered(), 'Project should be registered');
-            
+
             // Your test logic here
             // Project will be automatically unregistered after this block
         });

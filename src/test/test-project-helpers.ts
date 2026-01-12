@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 
 import { ProjEnvProject } from '@winccoa-tools-pack/npm-winccoa-core/types/project/ProjEnvProject';
 import {
@@ -8,8 +7,7 @@ import {
     getAvailableWinCCOAVersions,
 } from '@winccoa-tools-pack/npm-winccoa-core';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Use CommonJS __filename and __dirname directly
 
 /**
  * Gets the absolute path to the test fixtures directory
