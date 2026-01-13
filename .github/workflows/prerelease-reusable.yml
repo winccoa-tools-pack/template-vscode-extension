@@ -7,6 +7,11 @@ on:
         description: "Branch that triggered prerelease (e.g. release/v1.2.3)"
         required: true
         type: string
+      validate_release_branch:
+        description: "If true: require target_branch to be release/vX.Y.Z and match the computed version"
+        required: false
+        default: true
+        type: boolean
     outputs:
       version:
         description: "Computed prerelease version (x.y.z-<shortsha>)"
@@ -28,7 +33,7 @@ jobs:
     with:
       mode: prerelease
       target_branch: ${{ inputs.target_branch }}
-      validate_release_branch: true
+      validate_release_branch: ${{ inputs.validate_release_branch }}
       push_tag: true
       force_push_tag: true
     secrets: inherit
