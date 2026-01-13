@@ -80,12 +80,12 @@ jobs:
       # If your tests use @vscode/test-electron, Linux needs xvfb
       - name: Run tests (Linux headless)
         if: startsWith(matrix.os, 'ubuntu')
-        run: xvfb-run -a npm run test
+        run: xvfb-run -a npm run test:unit
         env:
           CI: true
 
       - name: Run tests (non-Linux)
         if: ${{ !startsWith(matrix.os, 'ubuntu') }}
-        run: npm run test
+        run: npm run test:unit
         env:
           CI: true

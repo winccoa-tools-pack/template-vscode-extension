@@ -87,8 +87,8 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
     "test": "vscode-test",
-    "test:unit": "npm test",
-    "test:integrationt": "vscode-test --suite integration",
+    "test:unit": "vscode-test --label unitTests",
+    "test:integrationt": "vscode-test --label integrationTests",
     "ci:integration": "npm ci && npm run compile && npm run test:integrationt",
     "style-check": "npm run format:check && npm run lint"
   }
