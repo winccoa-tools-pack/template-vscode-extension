@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 
 suite('JsonResultParser Unit Tests', () => {
-
     suiteSetup(() => {});
 
     suiteTeardown(() => {});
