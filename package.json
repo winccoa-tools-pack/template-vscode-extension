@@ -54,7 +54,7 @@
     "@types/vscode": "^1.108.0",
     "@eslint/js": "^9.39.2",
     "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
+    "@types/node": "25.x",
     "@vscode/vsce": "^3.7.1",
     "@winccoa-tools-pack/npm-winccoa-core": "^0.1.1",
     "copyfiles": "^2.4.1",
