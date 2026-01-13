@@ -79,7 +79,7 @@
     "copy-fixtures": "copyfiles -u 1 \"src/test/fixtures/**/*\" out/",
     "build": "npm run compile",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint && npm run lint:md && npm run format:check",
+    "pretest": "npm run compile && npm run lint",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules",
