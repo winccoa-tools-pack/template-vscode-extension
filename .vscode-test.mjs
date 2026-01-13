@@ -18,7 +18,7 @@ export default defineConfig([{
 },
 {
 	label: 'integrationTests',
-	files: 'out/test/integration-tests/**/*.test.js',
+	files: 'out/test/integration/**/*.test.js',
 	version: 'stable',
 	// integration tests usually run with a workspace open
 	workspaceFolder: './test-workspace',
