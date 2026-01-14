@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   versioning:
-    uses: ./.github/workflows/versioning-tags-changelog-reusable.yml
+    uses: winccoa-tools-pack/.github/.github/workflows/versioning-tags-changelog-reusable.yml@main
     with:
       mode: release
       create_tag: false
@@ -62,7 +62,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   tag:
-    uses: ./.github/workflows/versioning-tags-changelog-reusable.yml
+    uses: winccoa-tools-pack/.github/.github/workflows/versioning-tags-changelog-reusable.yml@main
     needs: [precheck]
     with:
       mode: release
