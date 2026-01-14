@@ -25,7 +25,7 @@ jobs:
         LICENSE
         # Add more paths you want from the org .github repo
       pr_title:  "chore(template): sync gh org files to repository"
-      pr_body:   "Automated sync from org template repository."
+      pr_body:   "Automated sync from organisation repository."
       pr_labels: "sync, automated"
    #   pr_reviewers: "REPLACE_WITH_REAL_USERS_OR_TEAMS"
       branch_prefix: "chore/org-sync"

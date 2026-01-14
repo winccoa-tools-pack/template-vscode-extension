@@ -26,10 +26,9 @@ jobs:
         .github/rulesets/**/*.yml
         .github/dependabot.yml
         .github/DISCUSSIONS.md
-#        .github/workflows/sync-template-files.yml
 #        .github/ISSUE_TEMPLATE/**/*.yaml
       pr_title:  "chore(template): sync template files"
-      pr_body:   "Automated sync from org template repository."
+      pr_body:   "Automated sync from template repository."
       pr_labels: "sync, automated"
    #   pr_reviewers: "REPLACE_WITH_REAL_USERS_OR_TEAMS"
       branch_prefix: "chore/template-sync"
