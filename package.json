@@ -1,53 +1,95 @@
 {
-  "name": "winccoa-vscode-extension",
-  "displayName": "WinCC OA Tools (template)",
+  "name": "vscode-<your-repository>",
+  "displayName": "WinCC OA — <Your Extension Name>",
+  "description": "VS Code extension template for WinCC OA tools.",
+  "version": "0.0.1",
   "publisher": "winccoa-tools-pack",
-  "version": "0.1.3",
   "author": "winccoa-tools-pack",
   "license": "MIT",
-  "engines": {
-    "vscode": "^1.80.0"
-  },
+  "icon": "resources/vscode-<your-repository>-icon.png",
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
-  "main": "dist/extension.js",
+  "keywords": [
+    "wincc-oa",
+    "scada",
+    "hmi",
+    "siemens",
+    "etm",
+    "industrial",
+    "automation"
+  ],
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/winccoa-tools-pack/<your-repository>"
+  },
+  "bugs": {
+    "url": "https://github.com/winccoa-tools-pack/<your-repository>/issues"
+  },
+  "homepage": "https://github.com/winccoa-tools-pack/<your-repository>#readme",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:winccoa.<yourExtensionCommand>"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "winccoa.<yourExtensionCommand>",
+        "title": "WinCC OA: Run <Your Command>"
+      }
+    ]
+  },
+  "extensionDependencies": [
+    "RichardJanisch.winccoa-project-admin"
+  ],
+  "dependencies": {
+    "@winccoa-tools-pack/npm-winccoa-core": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.108.0",
+    "@eslint/js": "^9.39.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@vscode/vsce": "^3.7.1",
+    "@winccoa-tools-pack/npm-winccoa-core": "^0.1.1",
+    "copyfiles": "^2.4.1",
+    "eslint": "^9.39.2",
+    "glob": "^13.0.0",
+    "markdownlint-cli": "^0.47.0",
+    "mocha": "^11.7.5",
+    "prettier": "^3.3.3",
+    "source-map": "^0.8.0-beta.0",
+    "ts-loader": "^9.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.51.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
+  },
   "scripts": {
-    "build": "tsc --build",
-    "compile": "tsc --build",
-    "prepublishOnly": "npm run build",
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./ && npm run copy-fixtures",
+    "copy-fixtures": "copyfiles -u 1 \"src/test/fixtures/**/*\" out/",
+    "build": "npm run compile",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules",
     "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --fix",
-    
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
-    "format:md": "prettier --write \"**/*.md\"",
-    "format:md:check": "prettier --check \"**/*.md\"",
-    "style-check": "npm run lint && npm run format:check && npm run lint:md && npm run format:md:check",
-    "style-fix": "npm run lint:fix && npm run format && npm run lint:md:fix && npm run format:md",
-    "test": "npm run style-check && npm run compile && node ./dist/test/runTest.js",
-    "test:integration": "npm run build && node ./dist/test/runTest.js",
-    "ci:integration": "npm ci && npm run test:integration",
-    "watch": "tsc --build --watch",
-    "package": "vsce package",
-    "vscode:prepublish": "npm run compile"
-  },
-  "devDependencies": {
-    "typescript": "^5.2.0",
-    "@types/vscode": "^1.80.0",
-    "@types/node": "^24.10.1",
-    "@types/mocha": "^10.0.6",
-    "@vscode/vsce": "^3.7.1",
-    "@vscode/test-electron": "^2.3.9",
-    "mocha": "^11.7.5",
-    "glob": "^13.0.0",
-    "eslint": "^8.50.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "prettier": "^2.8.8",
-    "markdownlint-cli": "^0.36.0"
+    "test": "vscode-test",
+    "test:unit": "vscode-test --label unitTests",
+    "test:integrationt": "vscode-test --label integrationTests",
+    "ci:integration": "npm ci && npm run compile && npm run test:integrationt",
+    "style-check": "npm run format:check && npm run lint"
   }
 }

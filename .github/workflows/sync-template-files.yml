@@ -20,10 +20,15 @@ jobs:
       sync_mode:     "update"
       paths: |
         .github/ISSUE_TEMPLATE/**/*.yml
-        .github/workflows/sync-template-files.yml
+        .github/workflows/**/*.yml
+        .github/labeler.yml
+        .github/pull_request_template.md
+        .github/rulesets/**/*.yml
+        .github/dependabot.yml
+        .github/DISCUSSIONS.md
 #        .github/ISSUE_TEMPLATE/**/*.yaml
       pr_title:  "chore(template): sync template files"
-      pr_body:   "Automated sync from org template repository."
+      pr_body:   "Automated sync from template repository."
       pr_labels: "sync, automated"
    #   pr_reviewers: "REPLACE_WITH_REAL_USERS_OR_TEAMS"
       branch_prefix: "chore/template-sync"
