@@ -1,152 +1,127 @@
 # WinCC OA VS Code Extension Template
 
-A minimal starter template for building **VS Code extensions for WinCC OA** with automated publishing via GitHub Actions.
+Template repository for building **VS Code extensions for WinCC OA**, with a GitFlow-style branching model and a CI → prerelease → release pipeline.
 
----
+## Quick start
 
-## 🚀 Quick Start
-
-### 1) Create Your Extension Repo
+Create a new repository from this template, then:
 
 ```bash
-# Using GitHub CLI
-gh repo create winccoa-tools-pack/<your-repository> \
-  --template winccoa-tools-pack/template-vscode-extension \
-  --public
-```
-
-### 2) Clone, Install, Build
-
-```bash
-git clone https://github.com/winccoa-tools-pack/<your-repository>
-cd <your-repository>
-
 npm install
 npm run compile
-npm test
+npm run test:unit
 ```
 
----
-
-## 🧩 Rename Placeholders in `package.json`
-
-Update these fields to match your extension:
-
-- `name`: `@winccoa-tools-pack/vscode-<your-repository>`
-- `displayName`: e.g., `WinCC OA — My Extension`
-- `description`: Short summary of your extension
-- `publisher`: Your Marketplace publisher ID
-- `icon`: Path to your icon (e.g., `resources/vscode-<your-repository>-icon.png`)
-- `repository.url`, `bugs.url`, `homepage`: Your repo links
-- `contributes.commands[].command`: Replace `winccoa.<yourExtensionCommand>`
-- `activationEvents`: Update to match your command ID
-
-Example quick edits:
-
-```bash
-npm pkg set name='@winccoa-tools-pack/vscode-my-extension'
-npm pkg set displayName='WinCC OA — My Extension'
-npm pkg set publisher='winccoa-tools-pack'
-```
-
----
-
-## 📁 Recommended Project Structure
-
-```text
-<your-repository>/
-├─ .github/                 # GitHub workflows (CI/CD)
-├─ resources/               # Icons/images for VSIX
-│  └─ vscode-<your-repository>-icon.png
-├─ src/                     # TypeScript source
-│  └─ extension.ts          # Extension entrypoint
-├─ test/                    # Unit & integration tests
-├─ out/                     # Webpack bundle output
-├─ webpack.config.js        # Bundling config
-├─ package.json             # Extension manifest
-├─ tsconfig.json            # TS config
-├─ .vscodeignore            # VSIX packaging ignore rules
-├─ .gitignore               # Git ignore rules
-└─ README.md
-```
-
----
-
-## 🔐 Marketplace Publishing
-
-✅ **Fully automated**: When you create a **GitHub Release**, the CI pipeline builds your extension and publishes it to the VS Code Marketplace using the `VSCE_PAT` secret.
-
-**What you need to do:**
-
-- Set up your publisher account: <https://marketplace.visualstudio.com/manage>
-- Add `VSCE_PAT` as a GitHub Actions secret
-- Ensure `publisher` and `name` in `package.json` match your Marketplace publisher and extension name
-
-No manual steps required—just tag a release and let the pipeline do the work!
-
----
-
-## 🛠️ Development
-
-```bash
-# Install dependencies
-npm install
-
-# Build (webpack -> out/extension.js)
-npm run compile
-
-# Watch & rebuild on change
-npm run watch
-
-# Run tests
-npm test
-
-# Package VSIX locally
-npm run package
-
-# Lint / format
-npm run style-check
-```
-
-Run in VS Code:
+Run locally in VS Code:
 
 - Press **F5** to open an **Extension Development Host**.
 
----
+## Customize the template
 
-## ✅ Features
+Update placeholders in `package.json`:
 
-- **Webpack bundling** for optimized VSIX
-- **TypeScript** with strict defaults
-- **Lean VSIX** via `.vscodeignore`
-- **CI/CD** for build, test, and publish on release
+- `name`, `displayName`, `description`
+- `publisher` (VS Code Marketplace publisher ID)
+- `icon` (e.g. `resources/vscode-<your-repository>-icon.png`)
+- `repository.url`, `bugs.url`, `homepage`
+- `activationEvents` and `contributes.commands[].command`
 
----
+Example:
 
-## 📜 License
+```bash
+npm pkg set name='vscode-my-extension'
+npm pkg set displayName='WinCC OA — My Extension'
+npm pkg set publisher='my-publisher'
+```
 
-MIT License. See <https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE>.
+## Development scripts
 
----
+These scripts exist in this template:
 
-## ⚠️ Disclaimer
+- Build: `npm run compile`
+- Watch: `npm run watch`
+- Lint: `npm run lint` and `npm run lint:md`
+- Format check: `npm run format:check`
+- Unit tests: `npm run test:unit`
+- Integration tests (WinCC OA container): `npm run ci:integration`
 
-**WinCC OA** and **Siemens** are trademarks of Siemens AG. This project is community-driven and not affiliated with Siemens AG.
+## Branching model (GitFlow)
 
----
+- `develop` is the default branch (day-to-day work)
+- `main` is the stable branch (releases)
+- `feature/*` / `bugfix/*` target `develop`
+- `release/vX.Y.Z` and `hotfix/vX.Y.Z` target `main`
 
-## 🎉 Thank You
+Automation overview:
 
-Thank you for using WinCC OA tools package!
-We're excited to be part of your development journey. **Happy Coding! 🚀**
+- PR validation: `.github/workflows/gitflow-validation.yml`
+- Upmerge `main` → `develop` via PR: `.github/workflows/gitflow.yml`
+- Create release/hotfix branches + PR: `.github/workflows/create-release-branch.yml`
+  - Important: this workflow does **not** update `CHANGELOG.md`.
 
----
+More details:
 
-### Quick Links
+- `docs/automation/GITFLOW_WORKFLOW.md`
 
-- [📦 VS Code Marketplace](https://marketplace.visualstudio.com/search?term=tag%3Awincc-oa&target=VSCode&category=All%20categories&sortBy=Relevance)
-- [SIMATIC WinCC Open Architecture](https://www.siemens.com/global/en/products/automation/industry-software/automation-software/scada/simatic-wincc-oa.html)
-- [SIMATIC WinCC Open Architecture official documentation](https://www.winccoa.com/documentation/WinCCOA/latest/en_US/index.html)
-- [ETM Company](https://www.winccoa.com/company.html)
+## CI + Integration tests
 
-<center>Made with ❤️ for and by the WinCC OA community</center>
+- CI pipeline: `.github/workflows/ci-cd.yml`
+- WinCC OA integration tests: `.github/workflows/integration-winccoa.yml`
+
+More details:
+
+- `docs/automation/CI-INTEGRATION.md`
+
+## Pre-release + release pipeline
+
+This template uses a **tested-artifact flow**:
+
+1. A prerelease workflow builds/tests and uploads a VSIX to a GitHub **pre-release**.
+2. The stable release workflow requires that prerelease artifact and republishes that tested VSIX.
+
+Workflows:
+
+- `.github/workflows/pre-release.yml` (alpha prerelease on PRs to `main`)
+- `.github/workflows/release.yml` + `.github/workflows/release-reusable.yml` (stable release from `main`)
+
+Marketplace publishing:
+
+- Optional secret: `VSCE_PAT` (if set, the release workflow publishes to the VS Code Marketplace).
+
+## First-time setup checklist
+
+- Update placeholders in `package.json` (name, publisher, repo URLs, command IDs).
+- Decide on your default branch strategy (this template assumes `develop` is default).
+- Configure secrets (as needed):
+  - `VSCE_PAT` (optional) to publish to VS Code Marketplace during stable release.
+  - `REPO_ADMIN_TOKEN` (recommended) to let `.github/workflows/apply-settings-and-rulesets.yml` apply `.github/repository.settings.yml` and `.github/rulesets/*`.
+  - `DOCKER_USER` + `DOCKER_PASSWORD` (optional) only if your WinCC OA image is private on Docker Hub.
+- Run Actions once to verify everything:
+  - `CI/CD Pipeline`
+  - `PR Labels` (open a PR to see labels apply)
+  - `Git Flow Validation` (open a PR to see validation)
+  - `Integration Tests - WinCC OA` (optional; requires a working image)
+
+## Repo settings + rulesets automation
+
+This template can apply repository settings + rulesets from YAML:
+
+- Source of truth:
+  - `.github/repository.settings.yml`
+  - `.github/rulesets/*.yml`
+- Workflow:
+  - `.github/workflows/apply-settings-and-rulesets.yml`
+
+To apply settings/rulesets, provide an admin-capable token:
+
+- Secret: `REPO_ADMIN_TOKEN`
+  - Classic PAT: scope `repo` (and authorize SSO if required)
+  - Fine-grained PAT: repository access + **Administration: Read and write**
+
+## License
+
+MIT License. See https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE.
+
+## Disclaimer
+
+WinCC OA and Siemens are trademarks of Siemens AG. This is a community project and is not affiliated with Siemens AG.
