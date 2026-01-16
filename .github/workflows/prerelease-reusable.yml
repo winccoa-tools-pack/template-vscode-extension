@@ -1,4 +1,4 @@
-name: Pre-Release (Reusable)
+name: Reusable Action Pre-Release
 
 on:
   workflow_call:
@@ -47,12 +47,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ inputs.target_branch != '' && inputs.target_branch || github.sha }}
 
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20.x
           cache: "npm"
@@ -91,7 +92,7 @@ jobs:
         run: vsce package
 
       - name: Upload VSIX artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ format('pre-release-{0}', github.sha) }}
           path: "*.vsix"
@@ -102,7 +103,7 @@ jobs:
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
           name: ${{ format('🧪 Pre-Release {0}', steps.meta.outputs.tag) }}
-          target_commitish: ${{ github.sha }}
+          target_commitish: ${{ inputs.target_branch != '' && inputs.target_branch || github.sha }}
           body: ${{ steps.body.outputs.body }}
           files: "*.vsix"
           draft: false
