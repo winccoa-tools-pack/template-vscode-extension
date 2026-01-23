@@ -55,13 +55,13 @@ Important: this workflow does **not** update `CHANGELOG.md`.
 ## Pre-release + release pipeline
 
 - **Pre-Release (Alpha)** (`.github/workflows/pre-release.yml`)
-	- Runs for PRs targeting `main`
-	- Creates a GitHub pre-release tag like `vX.Y.Z-<sha>` with a tested VSIX asset
+  - Runs for PRs targeting `main`
+  - Creates a GitHub pre-release tag like `vX.Y.Z-<sha>` with a tested VSIX asset
 
 - **Release** (`.github/workflows/release.yml` → `release-reusable.yml`)
-	- Runs on successful workflow runs on `main`
-	- Requires a matching tested prerelease asset for the version
-	- Creates the stable tag `vX.Y.Z`, attaches the tested VSIX, and optionally publishes to Marketplace (`VSCE_PAT`)
+  - Runs on successful workflow runs on `main`
+  - Requires a matching tested prerelease asset for the version
+  - Creates the stable tag `vX.Y.Z`, attaches the tested VSIX, and optionally publishes to Marketplace (`VSCE_PAT`)
 
 ## Branch protection / rulesets
 
@@ -70,8 +70,8 @@ Rulesets are defined in `.github/rulesets/` and can be applied automatically.
 Workflow: `.github/workflows/apply-settings-and-rulesets.yml`
 
 - Source of truth:
-	- `.github/repository.settings.yml`
-	- `.github/rulesets/*.yml`
+  - `.github/repository.settings.yml`
+  - `.github/rulesets/*.yml`
 - Requires an admin-capable token (`REPO_ADMIN_TOKEN`) to apply settings/rulesets.
 
 Note: the provided rulesets require these status check contexts:
@@ -81,3 +81,13 @@ Note: the provided rulesets require these status check contexts:
 - `Git Flow Validation - Required`
 
 If you keep these rulesets enabled, ensure your workflows emit these check names (or adjust the rulesets to match your repo).
+
+---
+
+## Quick Links
+
+• [📦 VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mPokornyETM.wincc-oa-tools-pack)
+
+---
+
+<center>Made with ❤️ for and by the WinCC OA community</center>
