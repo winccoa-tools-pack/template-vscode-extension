@@ -1,13 +1,75 @@
+/**
+ * @fileoverview Main extension entry point for WinCC OA VS Code extensions.
+ *
+ * This file serves as a template/example for building WinCC OA VS Code extensions.
+ * It demonstrates:
+ * - Basic extension activation and deactivation
+ * - Integration with dependent extensions (WinCC OA Project Admin)
+ * - Configuration handling
+ * - Command registration
+ * - Logging setup
+ *
+ * Key concepts shown:
+ * - Extension lifecycle management
+ * - Safe dependency handling with activation waiting
+ * - Project change event subscription
+ * - Configuration change watching
+ * - Proper cleanup on deactivation
+ *
+ * @example
+ * ```typescript
+ * // Basic extension structure
+ * export async function activate(context: vscode.ExtensionContext) {
+ *     // Initialize logging
+ *     const outputChannel = ExtensionOutputChannel.initialize();
+ *     context.subscriptions.push(outputChannel);
+ *
+ *     // Setup dependent extension integration
+ *     await setupCoreExtensionIntegration(context);
+ *
+ *     // Register commands
+ *     const command = vscode.commands.registerCommand('myExtension.command', handler);
+ *     context.subscriptions.push(command);
+ * }
+ *
+ * export function deactivate() {
+ *     // Cleanup resources
+ * }
+ * ```
+ */
+
 // src/extension.ts
 import * as vscode from 'vscode';
 import { ExtensionOutputChannel } from './extensionOutput';
 import { EXTENSION_CONFIG_SECTION, EXTENSION_ID, EXTENSION_NAME } from './const';
+import { setupCoreExtensionIntegration, cleanupCoreExtensionIntegration } from './otherExtensions';
 
-const CORE_EXTENSION_ID = 'RichardJanisch.winccoa-project-admin';
+/**
+ * Interface representing a WinCC OA project.
+ *
+ * This matches the project structure provided by the WinCC OA Project Admin extension.
+ * Used when subscribing to project change events.
+ */
 
-let coreIntegrationSetupInFlight: Promise<void> | undefined;
-let coreProjectChangeUnsubscribe: (() => void) | undefined;
-
+/**
+ * Extension activation function - called when VS Code activates the extension.
+ *
+ * This function sets up the extension's core functionality:
+ * 1. Initializes logging infrastructure
+ * 2. Sets up integration with dependent extensions
+ * 3. Registers configuration watchers
+ * 4. Registers commands
+ *
+ * @param context - VS Code extension context for managing subscriptions and state
+ *
+ * @example
+ * ```typescript
+ * // VS Code calls this automatically when the extension activates
+ * export async function activate(context: vscode.ExtensionContext) {
+ *     // Your setup code here
+ * }
+ * ```
+ */
 export async function activate(context: vscode.ExtensionContext) {
     // Initialize output channel
     const outputChannel = ExtensionOutputChannel.initialize();
@@ -22,7 +84,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Watch for configuration changes
     context.subscriptions.push(
-        vscode.workspace.onDidChangeConfiguration(e => {
+        vscode.workspace.onDidChangeConfiguration((e) => {
             if (e.affectsConfiguration(`${EXTENSION_CONFIG_SECTION}.logLevel`)) {
                 ExtensionOutputChannel.updateLogLevel();
             }
@@ -30,117 +92,70 @@ export async function activate(context: vscode.ExtensionContext) {
                 // Re-setup Core integration when mode changes
                 void setupCoreExtensionIntegration(context);
             }
-        })
+        }),
     );
 
     // Register a simple command
     const disposable = vscode.commands.registerCommand('winccoa.helloWorld', () => {
-        vscode.window.showInformationMessage(`Hello from WinCC OA VS Code Extension!\n${EXTENSION_NAME}`);
+        vscode.window.showInformationMessage(
+            `Hello from WinCC OA VS Code Extension!\n${EXTENSION_NAME}`,
+        );
     });
 
     context.subscriptions.push(disposable);
 }
 
+/**
+ * Sets up integration with the WinCC OA Project Admin core extension.
+ *
+ * This function demonstrates best practices for handling dependent extensions:
+ * - Checks if the dependent extension is installed
+ * - Waits for the dependent extension to activate (with timeout)
+ * - Falls back to manual activation if needed
+ * - Subscribes to project change events
+ * - Handles configuration-based enable/disable
+ *
+ * The integration supports two modes:
+ * - 'automatic': Full integration with project detection
+ * - Other values: Static mode (integration disabled)
+ *
+ * @param context - VS Code extension context for managing subscriptions
+ * @returns Promise that resolves when setup is complete
+ *
+ * @example
+ * ```typescript
+ * // In your activate function:
+ * await setupCoreExtensionIntegration(context);
+ *
+ * // The extension will now automatically:
+ * // - Detect when WinCC OA projects change
+ * // - Log project information
+ * // - Adapt to the current project context
+ * ```
+ */
 
-async function setupCoreExtensionIntegration(context: vscode.ExtensionContext) {
-    if (coreIntegrationSetupInFlight) {
-        return coreIntegrationSetupInFlight;
-    }
-
-    coreIntegrationSetupInFlight = (async () => {
-    const config = vscode.workspace.getConfiguration(EXTENSION_CONFIG_SECTION);
-    const pathSource = config.get<string>('pathSource', 'automatic');
-
-    if (pathSource !== 'automatic') {
-        ExtensionOutputChannel.info('CoreIntegration', 'Static mode - Core extension integration disabled');
-        if (coreProjectChangeUnsubscribe) {
-            coreProjectChangeUnsubscribe();
-            coreProjectChangeUnsubscribe = undefined;
-        }
-        return;
-    }
-
-    const coreExtension = vscode.extensions.getExtension(CORE_EXTENSION_ID);
-    
-    if (!coreExtension) {
-        ExtensionOutputChannel.warn('CoreIntegration', 'WinCC OA Core extension not found - automatic mode unavailable');
-        return;
-    }
-
-    // Core extension is typically activated via its own activationEvents (e.g. onStartupFinished).
-    // Explicitly calling activate() here can race and cause the Core to initialize twice.
-    if (!coreExtension.isActive) {
-        ExtensionOutputChannel.info('CoreIntegration', 'Waiting for Core extension to activate...');
-        const becameActive = await waitForExtensionActive(coreExtension, 4000);
-        if (!becameActive) {
-            // Fallback: if it still isn't active, try activating once.
-            ExtensionOutputChannel.info('CoreIntegration', 'Core still inactive - activating (fallback)...');
-            await coreExtension.activate();
-        }
-    }
-
-    ExtensionOutputChannel.info('CoreIntegration', 'Core extension active');
-
-    const coreApi = coreExtension.exports;
-    if (!coreApi) {
-        ExtensionOutputChannel.warn('CoreIntegration', 'Core extension has no exported API');
-        return;
-    }
-
-    // Avoid stacking multiple listeners if setup runs more than once
-    if (coreProjectChangeUnsubscribe) {
-        coreProjectChangeUnsubscribe();
-        coreProjectChangeUnsubscribe = undefined;
-    }
-    
-    // Subscribe to project changes
-    const maybeUnsubscribe = coreApi.onDidChangeProject((project: any) => {
-        if (project) {
-            ExtensionOutputChannel.info('CoreIntegration', `Project changed: ${project.name} (${project.oaInstallPath})`);
-        } else {
-            ExtensionOutputChannel.info('CoreIntegration', 'No project selected');
-        }
-    });
-
-    if (typeof maybeUnsubscribe === 'function') {
-        coreProjectChangeUnsubscribe = maybeUnsubscribe;
-        context.subscriptions.push({ dispose: maybeUnsubscribe });
-    }
-
-    const currentProject = coreApi.getCurrentProject();
-    if (currentProject) {
-        ExtensionOutputChannel.info('CoreIntegration', `Current project: ${currentProject.name} (${currentProject.oaInstallPath})`);
-    } else {
-        ExtensionOutputChannel.info('CoreIntegration', 'No project currently selected');
-    }
-    })().finally(() => {
-        coreIntegrationSetupInFlight = undefined;
-    });
-
-    return coreIntegrationSetupInFlight;
-}
-
-async function waitForExtensionActive(extension: vscode.Extension<any>, timeoutMs: number): Promise<boolean> {
-    if (extension.isActive) {
-        return true;
-    }
-
-    const deadline = Date.now() + timeoutMs;
-    while (Date.now() < deadline) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-        if (extension.isActive) {
-            return true;
-        }
-    }
-    return extension.isActive;
-}
-
+/**
+ * Extension deactivation function - called when VS Code deactivates the extension.
+ *
+ * This function should clean up any resources that were allocated during activation:
+ * - Unsubscribe from event listeners
+ * - Clear timers/intervals
+ * - Close connections
+ * - Log deactivation
+ *
+ * Note: VS Code may call this function at any time, so it should be robust
+ * and handle cases where resources may not be initialized.
+ *
+ * @example
+ * ```typescript
+ * export function deactivate() {
+ *     // Clean up your resources here
+ *     ExtensionOutputChannel.info('Extension', 'Extension deactivated');
+ * }
+ * ```
+ */
 export function deactivate() {
     ExtensionOutputChannel.info('Extension', `WinCC OA ${EXTENSION_NAME} Extension deactivated`);
-    // Clean up if needed
-    if (coreProjectChangeUnsubscribe) {
-        coreProjectChangeUnsubscribe();
-        coreProjectChangeUnsubscribe = undefined;
-    }
+    // Clean up core extension integration resources
+    cleanupCoreExtensionIntegration();
 }
- 
