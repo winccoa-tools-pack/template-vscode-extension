@@ -14,14 +14,14 @@ npm run test:unit
 
 Run locally in VS Code:
 
-- Press **F5** to open an **Extension Development Host**.
+To launch this extension, press **F5** in your VS Code instance to open an **Extension Development Host**.
 
 ## Customize the template
 
 Update placeholders in `package.json`:
 
 - `name`, `displayName`, `description`
-- `publisher` (VS Code Marketplace publisher ID)
+- `publisher` (VS Code Marketplace publisher ID) - **Note:** It's recommended to use the organization's publisher for easier trust and no need for individual VSCE tokens.
 - `icon` (e.g. `resources/vscode-<your-repository>-icon.png`)
 - `repository.url`, `bugs.url`, `homepage`
 - `activationEvents` and `contributes.commands[].command`
@@ -31,8 +31,16 @@ Example:
 ```bash
 npm pkg set name='vscode-my-extension'
 npm pkg set displayName='WinCC OA — My Extension'
-npm pkg set publisher='my-publisher'
+# Optional: Set your own publisher if not using the organization's
+# npm pkg set publisher='my-publisher'  # Requires VSCE_PAT and user trust
 ```
+
+Additionally, this template includes a dummy "Hello World" project. Search for and replace the following placeholders throughout the codebase:
+
+- `'hello-world'` → your extension's identifier or name
+- `'<your-repository>'` → your repository name
+
+Also, update `src/const.ts` with the appropriate values for `EXTENSION_ID`, `EXTENSION_NAME`, and `EXTENSION_CONFIG_SECTION`.
 
 ## Development scripts
 
@@ -90,6 +98,7 @@ Marketplace publishing:
 
 ## First-time setup checklist
 
+- Fill out the vision document: `docs/dev/VISION.md`.
 - Update placeholders in `package.json` (name, publisher, repo URLs, command IDs).
 - Decide on your default branch strategy (this template assumes `develop` is default).
 - Configure secrets (as needed):
@@ -125,3 +134,13 @@ MIT License. See https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE
 ## Disclaimer
 
 WinCC OA and Siemens are trademarks of Siemens AG. This is a community project and is not affiliated with Siemens AG.
+
+---
+
+## Quick Links
+
+• [📦 VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mPokornyETM.wincc-oa-tools-pack)
+
+---
+
+<center>Made with ❤️ for and by the WinCC OA community</center>
