@@ -63,7 +63,9 @@ let coreProjectChangeUnsubscribe: (() => void) | undefined;
  * // - Adapt to the current project context
  * ```
  */
-export async function setupCoreExtensionIntegration(context: vscode.ExtensionContext): Promise<void> {
+export async function setupCoreExtensionIntegration(
+    context: vscode.ExtensionContext,
+): Promise<void> {
     if (coreIntegrationSetupInFlight) {
         return coreIntegrationSetupInFlight;
     }

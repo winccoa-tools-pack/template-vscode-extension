@@ -129,7 +129,7 @@ To apply settings/rulesets, provide an admin-capable token:
 
 ## License
 
-MIT License. See https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE.
+MIT License. See <https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE>.
 
 ## Disclaimer
 
