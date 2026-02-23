@@ -243,7 +243,7 @@ export function isCoreExtensionAvailable(): boolean {
 
 /**
  * Gets the exported API of the core extension if available and active.
- * 
+ *
  * In our case it is API to access current project information and subscribe to project change events.
  * What API means depends on the core extension's implementation,
  * but it typically includes methods for accessing project information and subscribing to events.
@@ -271,9 +271,7 @@ export async function waitForCoreApi(
     coreExtensionOverride?: vscode.Extension<unknown> | null,
 ): Promise<unknown> {
     const coreExtension =
-        coreExtensionOverride === null
-            ? undefined
-            : (coreExtensionOverride ?? getCoreExtension());
+        coreExtensionOverride === null ? undefined : coreExtensionOverride ?? getCoreExtension();
     if (!coreExtension) {
         return Promise.resolve(null);
     }

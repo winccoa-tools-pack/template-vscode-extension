@@ -1,7 +1,11 @@
 import * as assert from 'assert';
 import { suite, test, suiteSetup, suiteTeardown } from 'mocha';
 import * as vscode from 'vscode';
-import { registerRunnableTestProject, unregisterTestProject, withRunnableTestProject } from '../test-project-helpers';
+import {
+    registerRunnableTestProject,
+    unregisterTestProject,
+    withRunnableTestProject,
+} from '../test-project-helpers';
 import { stopWatchingProjectRegistries } from '@winccoa-tools-pack/npm-winccoa-core/types/project/ProjEnvProjectRegistry';
 import path from 'path';
 import fs from 'fs';
@@ -12,7 +16,6 @@ import {
     ProjEnvManagerStartMode,
     type ProjEnvManagerOptions,
 } from '@winccoa-tools-pack/npm-winccoa-core';
-
 
 suite('Full VS Code Integration Tests with WinCC OA', () => {
     suiteSetup(async function () {
@@ -130,14 +133,12 @@ suite('Full VS Code Integration Tests with WinCC OA', () => {
             }
         }
 
-        const coreApi = (await waitForCoreApi(10000, coreExtension)) as
-            | {
-                  onDidChangeProject?: (cb: (p: any) => void) => (() => void) | void;
-                  getCurrentProject?: () => any;
-                  getRunningProjects?: () => any[];
-                  setCurrentProject?: (p: any) => void | Promise<void>;
-              }
-            | null;
+        const coreApi = (await waitForCoreApi(10000, coreExtension)) as {
+            onDidChangeProject?: (cb: (p: any) => void) => (() => void) | void;
+            getCurrentProject?: () => any;
+            getRunningProjects?: () => any[];
+            setCurrentProject?: (p: any) => void | Promise<void>;
+        } | null;
 
         if (!coreApi || typeof coreApi.onDidChangeProject !== 'function') {
             this.skip();
@@ -151,8 +152,8 @@ suite('Full VS Code Integration Tests with WinCC OA', () => {
             originalProject !== undefined
                 ? undefined
                 : Array.isArray(runningProjects) && runningProjects.length > 0
-                  ? runningProjects[0]
-                  : undefined;
+                ? runningProjects[0]
+                : undefined;
 
         if (targetProject === undefined && originalProject === undefined) {
             // Nothing to toggle to without depending on environment.
@@ -167,7 +168,10 @@ suite('Full VS Code Integration Tests with WinCC OA', () => {
 
         const waitForEvent = <T>(timeoutMs: number) =>
             new Promise<T>((resolve, reject) => {
-                const timer = setTimeout(() => reject(new Error('Timed out waiting for event')), timeoutMs);
+                const timer = setTimeout(
+                    () => reject(new Error('Timed out waiting for event')),
+                    timeoutMs,
+                );
                 const unsubscribe = coreApi.onDidChangeProject?.((p: T) => {
                     clearTimeout(timer);
                     if (typeof unsubscribe === 'function') {
@@ -299,15 +303,26 @@ suite('Full VS Code Integration Tests with WinCC OA', () => {
 
                     const managersAfter = await pmon.getManagerOptionsList(projectId);
                     const newIndex = findManagerIndex(managersAfter, uniqueComponent);
-                    assert.ok(newIndex !== -1, 'Inserted manager should be present after insertion');
+                    assert.ok(
+                        newIndex !== -1,
+                        'Inserted manager should be present after insertion',
+                    );
 
                     const addedManager = managersAfter[newIndex];
                     assert.strictEqual(addedManager.component, uniqueComponent);
-                    assert.strictEqual(addedManager.resetMin, 0, 'resetMin should be persisted as 0');
+                    assert.strictEqual(
+                        addedManager.resetMin,
+                        0,
+                        'resetMin should be persisted as 0',
+                    );
                     assert.strictEqual(addedManager.startMode, ProjEnvManagerStartMode.Manual);
                 } catch (error) {
                     const message = (error as Error)?.message ?? String(error);
-                    if (/version .* not found|not installed|WCCILpmon|not registered|PVSS_II/i.test(message)) {
+                    if (
+                        /version .* not found|not installed|WCCILpmon|not registered|PVSS_II/i.test(
+                            message,
+                        )
+                    ) {
                         this.skip();
                         return;
                     }
@@ -317,7 +332,10 @@ suite('Full VS Code Integration Tests with WinCC OA', () => {
                 }
             });
         } catch (error) {
-            console.warn('⚠️  Skipping PMON insertManagerAt test (environment not available):', error);
+            console.warn(
+                '⚠️  Skipping PMON insertManagerAt test (environment not available):',
+                error,
+            );
             this.skip();
         }
     });

@@ -40,7 +40,9 @@ suite('otherExtensions Unit Tests', () => {
     });
 
     test('setupCoreExtensionIntegration does not throw with a minimal context', async () => {
-        const context = { subscriptions: [] as vscode.Disposable[] } as unknown as vscode.ExtensionContext;
+        const context = {
+            subscriptions: [] as vscode.Disposable[],
+        } as unknown as vscode.ExtensionContext;
         await setupCoreExtensionIntegration(context);
         assert.ok(true);
     });
