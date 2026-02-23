@@ -6,7 +6,7 @@
   "version": "0.1.5",
   "author": "winccoa-tools-pack",
   "license": "MIT",
-  "icon": "resources/vscode-<your-repository>-icon.png",
+  "icon": "resources/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/winccoa-tools-pack/<your-repository>"
