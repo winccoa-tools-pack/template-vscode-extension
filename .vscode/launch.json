@@ -6,32 +6,16 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run Template Extension (only)",
+			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-			//	"--disable-extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
 			],
-			"preLaunchTask": "dev:template-only"
-		},
-		{
-			"name": "Run Template + Project Admin (dev)",
-			"type": "extensionHost",
-			"request": "launch",
-			"args": [
-				"--disable-extensions",
-				"--extensionDevelopmentPath=${workspaceFolder}/../vscode-winccoa-project-admin",
-				"--extensionDevelopmentPath=${workspaceFolder}"
-			],
-			"outFiles": [
-				"${workspaceFolder}/../vscode-winccoa-project-admin/out/**/*.js",
-				"${workspaceFolder}/out/**/*.js"
-			],
-			"preLaunchTask": "dev:template+project-admin"
+			"preLaunchTask": "${defaultBuildTask}"
 		}
 	]
 }
