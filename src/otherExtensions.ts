@@ -220,3 +220,76 @@ export function cleanupCoreExtensionIntegration(): void {
         coreProjectChangeUnsubscribe = undefined;
     }
 }
+
+/**
+ * Gets the VS Code extension instance for the WinCC OA Project Admin core extension.
+ */
+export function getCoreExtension(): vscode.Extension<unknown> | undefined {
+    return vscode.extensions.getExtension(CORE_EXTENSION_ID);
+}
+
+/**
+ *  Checks if the core extension is available and active.
+ *
+ * This is a simple utility function that can be used to conditionally enable
+ * features that depend on the core extension. It checks both the presence
+ * of the extension and whether it is currently active.
+ * @returns True if the core extension is available and active, false otherwise
+ */
+export function isCoreExtensionAvailable(): boolean {
+    const coreExtension = getCoreExtension();
+    return !!coreExtension && coreExtension.isActive;
+}
+
+/**
+ * Gets the exported API of the core extension if available and active.
+ *
+ * In our case it is API to access current project information and subscribe to project change events.
+ * What API means depends on the core extension's implementation,
+ * but it typically includes methods for accessing project information and subscribing to events.
+ *
+ * @returns The core extension's exported API or null if unavailable
+ */
+export function getCoreApi(): unknown {
+    const coreExtension = getCoreExtension();
+    if (coreExtension && coreExtension.isActive) {
+        return coreExtension.exports;
+    }
+    return null;
+}
+
+/** Waits for the core extension's API to become available with a timeout.
+ *
+ * This is a convenience function that combines checking for the core extension's
+ * presence, waiting for it to activate, and then returning its exported API.
+ *
+ * @param timeoutMs - Maximum time to wait in milliseconds
+ * @returns Promise resolving to the core extension's API or null if unavailable
+ */
+export async function waitForCoreApi(
+    timeoutMs: number,
+    coreExtensionOverride?: vscode.Extension<unknown> | null,
+): Promise<unknown> {
+    const coreExtension =
+        coreExtensionOverride === null ? undefined : coreExtensionOverride ?? getCoreExtension();
+    if (!coreExtension) {
+        return Promise.resolve(null);
+    }
+
+    if (coreExtension.isActive) {
+        return Promise.resolve(coreExtension.exports);
+    }
+
+    return new Promise((resolve) => {
+        const deadline = Date.now() + timeoutMs;
+        const interval = setInterval(() => {
+            if (coreExtension.isActive) {
+                clearInterval(interval);
+                resolve(coreExtension.exports);
+            } else if (Date.now() >= deadline) {
+                clearInterval(interval);
+                resolve(null);
+            }
+        }, 100);
+    });
+}

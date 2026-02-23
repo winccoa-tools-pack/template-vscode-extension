@@ -1,7 +1,7 @@
 # Repository settings applied via GitHub REST API by .github/workflows/apply-settings-and-rulesets.yml
 # This repo uses GitFlow: develop is default, main is stable release.
 
-description: "VS Code Tools Pack for WinCC OA"
+description: "The template for WinCC OA VS Code extension"
 homepage: "https://github.com/winccoa-tools-pack"
 default_branch: "develop"
 
@@ -9,8 +9,9 @@ has_issues: true
 has_wiki: false
 
 allow_squash_merge: true
-allow_merge_commit: false
+allow_merge_commit: true
 allow_rebase_merge: false
+allow_auto_merge: true
 
 delete_branch_on_merge: true
 
@@ -20,7 +21,6 @@ topics:
   - vscode
   - automation
   - vscode-extension
-  - vscode-extension-pack
   - scada
   - hmi
   - industrial-automation

@@ -1,5 +1,16 @@
 # WinCC OA VS Code Extension Template
 
+<div align="center">
+
+![Version](https://img.shields.io/github/v/release/winccoa-tools-pack/template-vscode-extension?label=version)
+![License](https://img.shields.io/github/license/winccoa-tools-pack/template-vscode-extension)
+![VS Code](https://img.shields.io/badge/VS%20Code-1.109.2-007ACC.svg)
+[![Coverage](https://codecov.io/gh/winccoa-tools-pack/template-vscode-extension/graph/badge.svg)](https://codecov.io/gh/winccoa-tools-pack/template-vscode-extension)
+[![Quality gate](https://github.com/winccoa-tools-pack/template-vscode-extension/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/winccoa-tools-pack/template-vscode-extension/actions/workflows/ci-cd.yml)
+[![Released](https://github.com/winccoa-tools-pack/template-vscode-extension/actions/workflows/release.yml/badge.svg)](https://github.com/winccoa-tools-pack/template-vscode-extension/actions/workflows/release.yml)
+
+</div>
+
 Template repository for building **VS Code extensions for WinCC OA**, with a GitFlow-style branching model and a CI → prerelease → release pipeline.
 
 ## Quick start
@@ -127,13 +138,24 @@ To apply settings/rulesets, provide an admin-capable token:
   - Classic PAT: scope `repo` (and authorize SSO if required)
   - Fine-grained PAT: repository access + **Administration: Read and write**
 
+---
+
+## 🛠️ Requirements
+
+- **VS Code:** 1.107.1 or higher
+- **WinCC OA:** 3.19+ installed on your system
+
+---
+
 ## License
 
 MIT License. See <https://github.com/winccoa-tools-pack/.github/blob/main/LICENSE>.
 
-## Disclaimer
+---
 
-WinCC OA and Siemens are trademarks of Siemens AG. This is a community project and is not affiliated with Siemens AG.
+## ⚠️ Disclaimer
+
+**WinCC OA** and **Siemens** are trademarks of Siemens AG. This project is not affiliated with, endorsed by, or sponsored by Siemens AG. This is a community-driven open source project created to enhance the development experience for WinCC OA developers.
 
 ---
 
