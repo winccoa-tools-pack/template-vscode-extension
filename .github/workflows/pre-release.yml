@@ -73,7 +73,7 @@ jobs:
         with:
           script: |
             const marker = '<!-- winccoa-changelog-preview -->';
-            const entry = String('${{ steps.gen.outputs.changelog }}' || '').trim();
+            const entry = (${{ toJSON(steps.gen.outputs.changelog) }} ?? '').trim();
 
             if (!entry) {
               core.warning('No changelog entry generated; skipping PR comment.');

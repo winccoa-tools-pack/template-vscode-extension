@@ -3,10 +3,10 @@
   "displayName": "WinCC OA — Hello World",
   "description": "VS Code extension template for WinCC OA tools.",
   "publisher": "winccoa-tools-pack",
-  "version": "0.0.2",
+  "version": "0.1.5",
   "author": "winccoa-tools-pack",
   "license": "MIT",
-  "icon": "resources/vscode-<your-repository>-icon.png",
+  "icon": "resources/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/winccoa-tools-pack/<your-repository>"
@@ -34,7 +34,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "private": false,
   "contributes": {
     "commands": [
@@ -61,7 +61,7 @@
     "start:insiders": "code-insiders --extensionDevelopmentPath=.",
     "dev": "npm run watch",
     "watch": "webpack --watch",
-    "pretest": "npm run compile:tsc && npm run lint",
+    "pretest": "npm run compile && npm run compile:tsc && npm run lint",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules",

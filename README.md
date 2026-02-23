@@ -29,12 +29,14 @@ To launch this extension, press **F5** in your VS Code instance to open an **Ext
 
 ## Customize the template
 
-Update placeholders in `package.json`:
+When you create a new repository from this template, update these placeholders first.
+
+Update values in `package.json`:
 
 - `name`, `displayName`, `description`
 - `publisher` (VS Code Marketplace publisher ID) - **Note:** It's recommended to use the organization's publisher for easier trust and no need for individual VSCE tokens.
-- `icon` (e.g. `resources/vscode-<your-repository>-icon.png`)
-- `repository.url`, `bugs.url`, `homepage`
+- `icon` (this repo includes a placeholder at `resources/icon.png` — replace it with your own 128x128 (or 256x256) PNG)
+- `repository.url`, `bugs.url`, `homepage` (remove `<your-repository>` placeholders)
 - `activationEvents` and `contributes.commands[].command`
 
 Example:
@@ -52,6 +54,13 @@ Additionally, this template includes a dummy "Hello World" project. Search for a
 - `'<your-repository>'` → your repository name
 
 Also, update `src/const.ts` with the appropriate values for `EXTENSION_ID`, `EXTENSION_NAME`, and `EXTENSION_CONFIG_SECTION`.
+
+### Template checklist
+
+- Replace the placeholder icon in `resources/icon.png`.
+- Replace all occurrences of `<your-repository>` with your actual repository name.
+- Update the Marketplace identifiers (`publisher`, `name`) before publishing.
+- Update links in `package.json` (`repository`, `bugs`, `homepage`) so they point to your new repo.
 
 ## Development scripts
 
