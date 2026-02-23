@@ -3,7 +3,7 @@
   "displayName": "WinCC OA — Hello World",
   "description": "VS Code extension template for WinCC OA tools.",
   "publisher": "winccoa-tools-pack",
-  "version": "0.0.2",
+  "version": "0.1.5",
   "author": "winccoa-tools-pack",
   "license": "MIT",
   "icon": "resources/vscode-<your-repository>-icon.png",
