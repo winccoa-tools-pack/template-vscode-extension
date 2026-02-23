@@ -22,7 +22,7 @@ jobs:
       pull-requests: read
     steps:
       - name: Validate branch + target + commits
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -37,6 +37,8 @@ jobs:
             const rules = [
             // main to develop means merging main back into develop (git flow)
               { type: 'main', prefixes: ['main'], expectedBase: 'develop' },
+            // fork develop into base develop
+              { type: 'fork', prefixes: ['develop'], expectedBase: 'develop' },
               { type: 'feature', prefixes: ['feature/'], expectedBase: 'develop' },
               { type: 'bugfix',  prefixes: ['bugfix/'],  expectedBase: 'develop' },
               { type: 'chore',   prefixes: ['chore/'],   expectedBase: 'develop', botOnly: true },
@@ -145,7 +147,7 @@ jobs:
       contents: read
     steps:
       - name: Comment if branch still exists
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const pr = context.payload.pull_request;

@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 
-import { ProjEnvProject } from '@winccoa-tools-pack/npm-winccoa-core/types/project/ProjEnvProject';
 import {
+    ProjEnvProject,
     getWinCCOAInstallationPathByVersion,
     getAvailableWinCCOAVersions,
 } from '@winccoa-tools-pack/npm-winccoa-core';
@@ -13,7 +13,12 @@ import {
  * Gets the absolute path to the test fixtures directory
  */
 export function getFixturesPath(): string {
-    return path.resolve(__dirname, '..', '..', 'test', 'fixtures');
+    console.log(
+        'Getting fixtures path:',
+        __dirname,
+        path.resolve(__dirname, '..', 'test', 'fixtures'),
+    );
+    return path.resolve(__dirname, '..', 'test', 'fixtures');
 }
 
 /**
@@ -157,6 +162,8 @@ export async function withRunnableTestProject(
     } finally {
         if (project) {
             await unregisterTestProject(project);
+
+            // stopWatchingProjectRegistries(); // Ensure we stop watching for project registry changes after the test
         }
     }
 }
