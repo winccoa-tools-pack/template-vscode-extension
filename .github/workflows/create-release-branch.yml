@@ -36,6 +36,11 @@ on:
         default: "chore,release"
         type: string
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   create:
     uses: winccoa-tools-pack/.github/.github/workflows/reusable-create-release-branch.yml@main
