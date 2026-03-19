@@ -17,6 +17,9 @@ on:
           - dry-run
           - apply
 
+permissions:
+  contents: read
+
 jobs:
   apply:
     uses: winccoa-tools-pack/.github/.github/workflows/reusable-apply-settings-and-rulesets.yml@main
