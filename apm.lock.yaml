@@ -1,0 +1,18 @@
+lockfile_version: '1'
+generated_at: '2026-04-03T22:15:21.144320+00:00'
+apm_version: 0.8.10
+dependencies:
+- repo_url: winccoa-tools-pack/apm-org
+  host: github.com
+  resolved_commit: 1a55efb01d92abe3dcf889594828ae0f86f95723
+  package_type: apm_package
+  deployed_files:
+  - .github/skills/conventional-commits
+  - .github/skills/create-pr
+  - .github/skills/git-flow
+  content_hash: sha256:0864e47150b72e3cc48fcea16e5d926a838d7a2fad24263532958dadb175a95d
+- repo_url: winccoa-tools-pack/apm-vscode-extension
+  host: github.com
+  resolved_commit: 58f49bd676dcb10d6bdd84b093130104c8e1fd0a
+  package_type: apm_package
+  content_hash: sha256:9194887926189c676ac91fc7db3e6cf4b0c516ec079782ae5e1e43ccebf3c85f

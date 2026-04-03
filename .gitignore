@@ -1,6 +1,7 @@
 
 # Dependencies
 node_modules/
+apm_modules/
 
 # Build output
 dist/
