@@ -27,6 +27,20 @@ Run locally in VS Code:
 
 To launch this extension, press **F5** in your VS Code instance to open an **Extension Development Host**.
 
+## AI Skills (APM)
+
+This repository ships an [`apm.yml`](apm.yml) that pulls in org-wide and extension-specific AI skills.  
+After cloning, run once:
+
+```bash
+apm install
+```
+
+This deploys the skills into `.github/skills/` (gitignored) so your AI tools pick them up automatically. Re-run after `git pull` when `apm.lock.yaml` changes.
+
+> Full install instructions, available skills, and examples:  
+> [winccoa-tools-pack/apm-org](https://github.com/winccoa-tools-pack/apm-org)
+
 ## Customize the template
 
 When you create a new repository from this template, update these placeholders first.
